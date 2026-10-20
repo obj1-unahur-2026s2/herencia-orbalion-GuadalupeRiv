@@ -1,0 +1,21 @@
+import orbalion.*
+
+describe "Test Orbalion"{
+
+const equipoL = new Luminico(nombre="L",nivelDeEnergiaBase=2,entrenador="X",nivelDeRadiacionCapturada=2)
+const equipoS = new Sintetico(nombre="S",nivelDeEnergiaBase=3, entrenador="Y",nivelDeProcesamientoCentral=3,cantModulosActivos=2,estanCertificados=true)
+const equipoE = new Eterico(nombre="E", nivelDeEnergiaBase=5,entrenador="J",nivelFluctuacion=1,cantPortalesAbiertos=2)
+const x = new Entrenador(cantCiclosSolaresExp=5,estaEnSintonia=true,nivelPrecisionEstrategica= 20,rol=guiaMental)
+const y = new Entrenador(cantCiclosSolaresExp=2,estaEnSintonia= false, nivelPrecisionEstrategica=50,rol= estrategaCuantico)
+const j = new Entrenador(cantCiclosSolaresExp=10,estaEnSintonia=true,nivelPrecisionEstrategica=99,rol=arquitectoDeEnergia)
+const nucleoGravitacional = new TecnologiasEspeciales(nombre="NG",valorEnergetico=10,estaActiva=true)
+const interfazDeProyeccionMental= new TecnologiasEspeciales(nombre="IPM",valorEnergetico=30,estaActiva=false)
+const camaraDeFusionEnergetica = new TecnologiasEspeciales(nombre="CFE",valorEnergetico=25,estaActiva=true)
+
+test "Dado que un entrenador se le asigna un rol distinto a los autorizados por la FOZ, lanza un error con el mensaje -Rol no homologadopor la FOZ-"{
+    x.asignarRol(guiaCuantico)
+    assert.equals("Rol no homologadopor la FOZ",x.validarRol(guiaCuantico))
+}
+}
+
+
