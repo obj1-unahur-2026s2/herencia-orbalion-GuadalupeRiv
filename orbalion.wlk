@@ -5,11 +5,13 @@ class Equipo{
     const entrenador
     method entrenador()= entrenador
     const tecnologiasComplemetarias=[]
+    method agregarTecnologia(unaTecnologia){
+        tecnologiasComplemetarias.add(unaTecnologia)
+        }
 
-    method tecnologiasActivas() = tecnologiasComplemetarias.filter(t => t.estaActiva())
-    method valoresEnergeticosDeTecnologiasActivas() = tecnologiasActivas.sum(t =>t.valorEnergetico())
-    method energiaTotal()= nivelDeEnergiaBase + valoresEnergeticosDeTecnologiasActivas()
-
+    method tecnologiasActivas() = tecnologiasComplemetarias.filter({t => t.estaActiva()})
+    method valoresEnergeticosDeTecnologiasActivas() = self.tecnologiasActivas().sum({t =>t.valorEnergetico()})
+    method energiaTotal()= nivelDeEnergiaBase + self.valoresEnergeticosDeTecnologiasActivas()
 
 }
 class Luminico inherits Equipo{
@@ -17,10 +19,13 @@ class Luminico inherits Equipo{
     const cristalesSolares=[]
 
     override method energiaTotal(){
-        if (nivelDeRadiacionCapturada < 5000){
-            return super() + (super()*0.1)
-        }
-    }
+        if (nivelDeRadiacionCapturada <= 5000){
+            return super() + (super()*0.1)}
+        else{
+            return super()}
+}
+        
+    
 
 }
 class Sintetico inherits Equipo{
@@ -30,11 +35,12 @@ class Sintetico inherits Equipo{
 
     override method energiaTotal(){
         if (cantModulosActivos > 5){
-           return super() - (super()*0.2)
-        }
+           return super() - (super()*0.2)}
+        else{
+            return super()}
     }
 }
-calss Eterico inherits Equipo{
+class Eterico inherits Equipo{
     const nivelFluctuacion
     const cantPortalesAbiertos
 
@@ -53,7 +59,7 @@ class Entrenador{
     }
     method  validarRol(unRol){
         if (not rolesHomologados.contains(unRol)){
-             self.error("Rol no homologadopor la FOZ")
+             self.error("Rol no homologado por la FOZ")
         }
     }
 }
@@ -67,6 +73,9 @@ object arquitectoDeEnergia{
 object guiaMental{
 
 }
+object guiaCuantico{
+
+}
 class TecnologiasEspeciales{
     const nombre
     const valorEnergetico
@@ -75,3 +84,4 @@ class TecnologiasEspeciales{
     method estaActiva() = estaActiva
 
 }
+
