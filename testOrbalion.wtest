@@ -8,7 +8,8 @@ const equipoL1 = new Luminico(nombre="L1",nivelDeEnergiaBase=200,entrenador=x,ni
 const equipoL = new Luminico(nombre="L",nivelDeEnergiaBase=400,entrenador=x,nivelDeRadiacionCapturada=5010)
 const equipoS = new Sintetico(nombre="S",nivelDeEnergiaBase=300, entrenador=y,nivelDeProcesamientoCentral=3,cantModulosActivos=6,estanCertificados=true)
 const equipoS1 = new Sintetico(nombre="S",nivelDeEnergiaBase=300, entrenador=y,nivelDeProcesamientoCentral=3,cantModulosActivos=4,estanCertificados=true)
-const equipoE = new Eterico(nombre="E", nivelDeEnergiaBase=500,entrenador=j,nivelFluctuacion=1,cantPortalesAbiertos=2)
+const equipoE = new Eterico(nombre="E", nivelDeEnergiaBase=500,entrenador=j,nivelFluctuacion=10,cantPortalesAbiertos=2)
+const equipoE1 = new Eterico(nombre="E1", nivelDeEnergiaBase=700,entrenador=j,nivelFluctuacion=80,cantPortalesAbiertos=3)
 const nucleoGravitacional = new TecnologiasEspeciales(nombre="NG",valorEnergetico=10,estaActiva=true)
 const interfazDeProyeccionMental= new TecnologiasEspeciales(nombre="IPM",valorEnergetico=30,estaActiva=false)
 const camaraDeFusionEnergetica = new TecnologiasEspeciales(nombre="CFE",valorEnergetico=25,estaActiva=true)
@@ -64,5 +65,20 @@ test "Dado un equipo sintetico con 6 modulos activos, esta certificado y tiene u
     equipoS.agregarTecnologia(interfazDeProyeccionMental)
     equipoS.agregarTecnologia(nucleoGravitacional)
     assert.notThat(equipoS.esDePrestigioUniversal())
+}
+test "Dado un equipo eterico con 3 portales abiertos, nivel de fluctuacion de 80 y 2 tecnologias activas, es de prestigio universal"{
+    equipoE1.agregarTecnologia(nucleoGravitacional)
+    equipoE1.agregarTecnologia(camaraDeFusionEnergetica)
+    assert.that(equipoE1.esDePrestigioUniversal())
+}
+test "Ddo un equipo eterico de prestigio universal, su energia total es la suma de su energia base mas el valor energetico de las tecnologias activas con un bono del 15%"{
+    equipoE1.agregarTecnologia(nucleoGravitacional)
+    equipoE1.agregarTecnologia(camaraDeFusionEnergetica)
+    assert.equals(845.25,equipoE1.energiaTotal())
+}
+test "Dado un equipo eterico que no es de prestigio universal, su energia total es la suma de su energia base mas el valor energetico de las tecnologias activas pero sin el 15% de bono"{
+    equipoE.agregarTecnologia(nucleoGravitacional)
+    equipoE.agregarTecnologia(camaraDeFusionEnergetica)
+    assert.equals(535,equipoE.energiaTotal())
 }
 }
