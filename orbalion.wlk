@@ -49,7 +49,9 @@ class Eterico inherits Equipo{
 class Entrenador{
     const cantCiclosSolaresExp
     const estaEnSintonia
+    method estaEnSintonia() = estaEnSintonia
     const nivelPrecisionEstrategica
+    method nivelPrecisionEstrategica() = nivelPrecisionEstrategica
     const rolesHomologados = [estrategaCuantico,arquitectoDeEnergia,guiaMental]
     var rol 
     method rol() = rol
@@ -62,19 +64,24 @@ class Entrenador{
              self.error("Rol no homologado por la FOZ")
         }
     }
+    method cumpleCondicion(unRol) = unRol.cumpleCondicion(self)
+
+    method esEliteGalactico() = cantCiclosSolaresExp > 10 and self.cumpleCondicion(rol)
 }
 
 object estrategaCuantico{
+   method cumpleCondicion(entrenador) = entrenador.nivelPrecisionEstrategica() > 80 
 }
 
 object arquitectoDeEnergia{
+    method cumpleCondicion(entrenador) = entrenador.estaEnSintonia()
 
 }
 object guiaMental{
-
+    method cumpleCondicion(entrenador) = true
 }
 object guiaCuantico{
-
+    method cumpleCondicion(entrenador) = false
 }
 class TecnologiasEspeciales{
     const nombre

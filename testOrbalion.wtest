@@ -1,9 +1,9 @@
 import orbalion.*
 
 describe "Test Orbalion"{
-const x = new Entrenador(cantCiclosSolaresExp=5,estaEnSintonia=true,nivelPrecisionEstrategica= 20,rol=guiaMental)
-const y = new Entrenador(cantCiclosSolaresExp=2,estaEnSintonia= false, nivelPrecisionEstrategica=50,rol= estrategaCuantico)
-const j = new Entrenador(cantCiclosSolaresExp=10,estaEnSintonia=true,nivelPrecisionEstrategica=99,rol=arquitectoDeEnergia)
+const x = new Entrenador(cantCiclosSolaresExp=12,estaEnSintonia=true,nivelPrecisionEstrategica= 90,rol=estrategaCuantico)
+const y = new Entrenador(cantCiclosSolaresExp=15,estaEnSintonia= false, nivelPrecisionEstrategica=50,rol= guiaMental)
+const j = new Entrenador(cantCiclosSolaresExp=11,estaEnSintonia=false,nivelPrecisionEstrategica=99,rol=arquitectoDeEnergia)
 const equipoL1 = new Luminico(nombre="L1",nivelDeEnergiaBase=200,entrenador=x,nivelDeRadiacionCapturada=3000)
 const equipoL = new Luminico(nombre="L",nivelDeEnergiaBase=400,entrenador=x,nivelDeRadiacionCapturada=5010)
 const equipoS = new Sintetico(nombre="S",nivelDeEnergiaBase=300, entrenador=y,nivelDeProcesamientoCentral=3,cantModulosActivos=6,estanCertificados=true)
@@ -16,7 +16,6 @@ const camaraDeFusionEnergetica = new TecnologiasEspeciales(nombre="CFE",valorEne
 test "Dado que un entrenador se le asigna un rol distinto a los autorizados por la FOZ, lanza un error con el mensaje -Rol no homologadopor la FOZ-"{
     assert.throwsExceptionWithMessage("Rol no homologado por la FOZ",{x.asignarRol(guiaCuantico)})
 }
-
 test "Dado un equipo luminco con radioacion > 5000 y sin tecnologias activas,su energia total es su energia base"{
     equipoL.agregarTecnologia(interfazDeProyeccionMental)
     assert.equals(400,equipoL.energiaTotal())
@@ -25,17 +24,22 @@ test "Dado un equipo luminco con radioacion < 5000 y sin tecnologias activas,su 
     equipoL1.agregarTecnologia(interfazDeProyeccionMental)
     assert.equals(220,equipoL1.energiaTotal())
 }
-
 test "Dado un equipo sintetico con 6 modulos activos , recibe una penalizacion del 20%"{
     equipoS.agregarTecnologia(camaraDeFusionEnergetica)
     assert.equals(260,equipoS.energiaTotal())
 }
-
 test "Dado u equipo sintetico con 4 modulos activos, y 2 tecnologias activas, su energia total es la suma de su energia base mas el valor energetico de las tecnologias activas"{
     equipoS1.agregarTecnologia(camaraDeFusionEnergetica)
     equipoS1.agregarTecnologia(nucleoGravitacional)
     assert.equals(335,equipoS1.energiaTotal())
 }
-
+test "Dado un entrenador con rol de estratega cuantico con 12 ciclos solares de experiencia y nivel de precision estrategica de 90, es de elite galactica"{
+    assert.that(x.esEliteGalactico())
 }
-
+test "Dado un entrenado con rol arquitecto de energia con 11 ciclos solares de experiencia y no esta en sintonia, no es de elite galactica"{
+    assert.notThat(j.esEliteGalactico())
+}
+test "Dado un entrenador con rol de guia mental con 15 ciclos solares de experiencia, es de elite galactica"{
+    assert.that(y.esEliteGalactico())
+}
+}
