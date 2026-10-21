@@ -4,19 +4,22 @@ class Equipo{
     const nivelDeEnergiaBase
     const entrenador
     method entrenador()= entrenador
-    const tecnologiasComplemetarias=[]
+    const tecnologiasComplementarias=[]
     method agregarTecnologia(unaTecnologia){
-        tecnologiasComplemetarias.add(unaTecnologia)
+        tecnologiasComplementarias.add(unaTecnologia)
         }
 
-    method tecnologiasActivas() = tecnologiasComplemetarias.filter({t => t.estaActiva()})
+    method tecnologiasActivas() = tecnologiasComplementarias.filter({t => t.estaActiva()})
     method valoresEnergeticosDeTecnologiasActivas() = self.tecnologiasActivas().sum({t =>t.valorEnergetico()})
     method energiaTotal()= nivelDeEnergiaBase + self.valoresEnergeticosDeTecnologiasActivas()
-
+    method esDePrestigioUniversal()
 }
 class Luminico inherits Equipo{
     const nivelDeRadiacionCapturada
     const cristalesSolares=[]
+    method agregarCristalSolar(unCristal) {
+        cristalesSolares.add(unCristal)
+    }
 
     override method energiaTotal(){
         if (nivelDeRadiacionCapturada <= 5000){
@@ -25,7 +28,7 @@ class Luminico inherits Equipo{
             return super()}
 }
         
-    
+ override method esDePrestigioUniversal() = cristalesSolares.size() >= 3 and entrenador.esEliteGalactico() and tecnologiasComplementarias.any({t=>t.estaActiva()})   
 
 }
 class Sintetico inherits Equipo{
@@ -39,11 +42,21 @@ class Sintetico inherits Equipo{
         else{
             return super()}
     }
+
+    override method esDePrestigioUniversal() = estanCertificados and cantModulosActivos > 3 and tecnologiasComplementarias.all({t => t.estaActiva()})
 }
 class Eterico inherits Equipo{
     const nivelFluctuacion
     const cantPortalesAbiertos
 
+    override method energiaTotal(){
+        if (self.esDePrestigioUniversal()){
+            return super() + (super()*0.15)}
+        else{
+            return super()}
+    }
+
+    override method esDePrestigioUniversal() = nivelFluctuacion >75 and cantPortalesAbiertos >= 2 and self.tecnologiasActivas().size() >= 2
 }
 
 class Entrenador{

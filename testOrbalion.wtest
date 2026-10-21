@@ -42,4 +42,27 @@ test "Dado un entrenado con rol arquitecto de energia con 11 ciclos solares de e
 test "Dado un entrenador con rol de guia mental con 15 ciclos solares de experiencia, es de elite galactica"{
     assert.that(y.esEliteGalactico())
 }
+test "Dado un equipo Luminico con 3 cristales, entrenador de elite y una tecnologia activa, es equipo es de prestigio Universal"{
+    equipoL.agregarCristalSolar("SOL")
+    equipoL.agregarCristalSolar("FEBO")
+    equipoL.agregarCristalSolar("RA")
+    equipoL.agregarTecnologia(nucleoGravitacional)
+    assert.that(equipoL.esDePrestigioUniversal())
+}
+test "Dado un equipo sintetico con 4 modulos y todas las tecnologias activas, es de prestigio universal"{
+    equipoS1.agregarTecnologia(camaraDeFusionEnergetica)
+    equipoS1.agregarTecnologia(nucleoGravitacional)
+    assert.that(equipoS1.esDePrestigioUniversal())
+}
+test "Dado un equipo luminico con 2 cristales, entrenador de elite y una tecnologia activa, no es de prestigio universal"{
+    equipoL1.agregarCristalSolar("SOL")
+    equipoL1.agregarCristalSolar("FEBO")
+    equipoL1.agregarTecnologia(nucleoGravitacional)
+    assert.notThat(equipoL1.esDePrestigioUniversal())
+}
+test "Dado un equipo sintetico con 6 modulos activos, esta certificado y tiene una tecnologia no activa, no es de prestigio universal"{
+    equipoS.agregarTecnologia(interfazDeProyeccionMental)
+    equipoS.agregarTecnologia(nucleoGravitacional)
+    assert.notThat(equipoS.esDePrestigioUniversal())
+}
 }
